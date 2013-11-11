@@ -67,8 +67,7 @@ module.exports = function(grunt) {
     configureDestination(options, task);
     configureMaven(options, task);
 
-    grunt.task.run('maven:package',
-      'maven:deploy-file');
+    grunt.task.run('maven:deploy-file');
   }
 
   function release(task, version, mode) {
