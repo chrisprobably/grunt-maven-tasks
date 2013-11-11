@@ -51,8 +51,7 @@ module.exports = function(grunt) {
     configureDestination(options, task);
     configureMaven(options, task);
 
-    grunt.task.run('maven:package',
-      'maven:install-file');
+    grunt.task.run('maven:install-file');
   }
 
   function deploy(task) {
@@ -103,7 +102,6 @@ module.exports = function(grunt) {
     configureMaven(options, task);
 
     grunt.task.run('maven:version:' + options.version,
-      'maven:package',
       'maven:deploy-file',
       'maven:version:' + options.nextVersion + ':deleteTag');
   }
@@ -131,12 +129,6 @@ module.exports = function(grunt) {
     grunt.config.set('maven.deploy-file.options', options);
     grunt.config.set('maven.install-file.options', options);
   }
-
-  grunt.registerTask('maven:package', function() {
-    var compress = require('grunt-contrib-compress/tasks/lib/compress')(grunt);
-    compress.options = grunt.config('maven.package.options');
-    compress.tar(grunt.config('maven.package.files'), this.async());
-  });
 
   grunt.registerTask('maven:install-file', function() {
     var options = grunt.config('maven.install-file.options');
